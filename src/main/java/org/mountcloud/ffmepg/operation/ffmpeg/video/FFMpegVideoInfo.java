@@ -1,4 +1,4 @@
-package org.mountcloud.ffmepg.operation.ffmpeg.vidoe;
+package org.mountcloud.ffmepg.operation.ffmpeg.video;
 
 import org.mountcloud.ffmepg.annotation.FFCmd;
 import org.mountcloud.ffmepg.operation.ffmpeg.FFMpegOperationBase;

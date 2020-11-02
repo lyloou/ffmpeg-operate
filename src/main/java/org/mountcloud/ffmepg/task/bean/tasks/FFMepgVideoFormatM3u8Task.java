@@ -1,6 +1,6 @@
 package org.mountcloud.ffmepg.task.bean.tasks;
 
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoFormatM3u8;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoFormatM3u8;
 import org.mountcloud.ffmepg.task.bean.FFVideoTask;
 import org.mountcloud.ffmepg.util.FFBigDecimalUtil;
 import org.mountcloud.ffmepg.util.FFVideoUtil;

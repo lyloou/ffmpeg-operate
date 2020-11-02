@@ -1,8 +1,8 @@
 package org.mountcloud.ffmepg.task.bean.tasks;
 
 import org.mountcloud.ffmepg.excption.FFMpegOperationExcption;
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoCut;
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoInfo;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoCut;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoInfo;
 import org.mountcloud.ffmepg.result.defaultResult.FFVideoInfoResult;
 import org.mountcloud.ffmepg.task.bean.FFVideoTask;
 import org.mountcloud.ffmepg.task.context.FFTaskContext;

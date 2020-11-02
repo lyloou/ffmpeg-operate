@@ -1,6 +1,6 @@
 package org.mountcloud.ffmepg.task.bean.tasks;
 
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoScreenShot;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoScreenShot;
 import org.mountcloud.ffmepg.task.bean.FFVideoTask;
 
 /**

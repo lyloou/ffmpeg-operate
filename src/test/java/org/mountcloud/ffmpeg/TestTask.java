@@ -1,9 +1,9 @@
 package org.mountcloud.ffmpeg;
 
 import org.junit.Test;
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoCut;
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoFormatM3u8;
-import org.mountcloud.ffmepg.operation.ffmpeg.vidoe.FFMpegVideoInfo;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoCut;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoFormatM3u8;
+import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoInfo;
 import org.mountcloud.ffmepg.result.defaultResult.FFVideoInfoResult;
 import org.mountcloud.ffmepg.task.bean.FFTaskStateEnum;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoCutTask;
