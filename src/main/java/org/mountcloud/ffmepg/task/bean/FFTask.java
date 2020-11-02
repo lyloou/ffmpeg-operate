@@ -9,7 +9,6 @@ import org.mountcloud.ffmepg.task.threads.FFThread;
 import org.mountcloud.ffmepg.util.FFTerminalCreater;
 import org.mountcloud.ffmepg.util.UUIDUtil;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -65,19 +64,18 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
     @Override
     public void run() {
 
-        //执行开始前回调
-        callExecStart();
-
-        //任务开始
-        progress.setState(FFTaskStateEnum.START);
-
-        //执行的命令
-        String cmd = operationBase.toString();
-
         //任务执行状态
         boolean state = true;
-
         try {
+            //执行开始前回调
+            callExecStart();
+
+            //任务开始
+            progress.setState(FFTaskStateEnum.START);
+
+            //执行的命令
+            String cmd = operationBase.toString();
+
             terminal = FFTerminalCreater.getCreater().getTerminal(cmd);
             //初始化读取线程
             initReadThread();
@@ -89,25 +87,30 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
             //执行完毕则获取执行状态
             state = this.checkReadState();
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             state = false;
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            state = false;
-            e.printStackTrace();
+        } finally {
+            //执行结束回调
+            callExecEnd();
+
+            FFTaskContext.getContext().removeTask(this.getTaskId());
+
+            //设置状态
+            progress.setProgress(100);
+            progress.setState(state ? FFTaskStateEnum.COMPLETE : FFTaskStateEnum.FAILED);
         }
 
-        //设置状态
-        if (state) {
-            progress.setState(FFTaskStateEnum.COMPLETE);
-        } else {
-            progress.setState(FFTaskStateEnum.FAILED);
+
+    }
+
+    public boolean isRunning() {
+        switch (getProgress().getState()) {
+            case FAILED:
+            case COMPLETE:
+                return false;
         }
-        progress.setProgress(100);
-        FFTaskContext.getContext().removeTask(this.getTaskId());
-        //执行结束回调
-        callExecEnd();
+        return true;
     }
 
     /**

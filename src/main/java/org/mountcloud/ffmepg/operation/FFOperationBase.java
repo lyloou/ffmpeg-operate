@@ -3,7 +3,7 @@ package org.mountcloud.ffmepg.operation;
 
 import org.mountcloud.ffmepg.annotation.FFAnnotation;
 import org.mountcloud.ffmepg.annotation.FFCmdBean;
-import org.mountcloud.ffmepg.excption.FFMpegOperationConvertExcption;
+import org.mountcloud.ffmepg.excption.FFMpegOperationExcption;
 import org.mountcloud.ffmepg.util.FFAnnotationUtil;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public abstract class FFOperationBase {
             str = null;
         }
         if (str == null) {
-            throw new FFMpegOperationConvertExcption("FFMpegOperation To String Is Null!");
+            throw new FFMpegOperationExcption("FFMpegOperation To String Is Null!");
         }
 
         stringvalue = str;

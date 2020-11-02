@@ -4,7 +4,7 @@ package org.mountcloud.ffmepg.util;
 import org.mountcloud.ffmepg.annotation.FFAnnotation;
 import org.mountcloud.ffmepg.annotation.FFCmd;
 import org.mountcloud.ffmepg.annotation.FFCmdBean;
-import org.mountcloud.ffmepg.excption.FFMpegOperationNotFoundExcption;
+import org.mountcloud.ffmepg.excption.FFMpegOperationExcption;
 import org.mountcloud.ffmepg.operation.FFOperationBase;
 
 import java.lang.reflect.Field;
@@ -39,7 +39,7 @@ public class FFAnnotationUtil {
         FFAnnotation classFFAnnotation = getFFOperation(classFFCmd, null, bean);
 
         if (classFFAnnotation == null) {
-            throw new FFMpegOperationNotFoundExcption(beanClass.getName() + " not found FFCmd.");
+            throw new FFMpegOperationExcption(beanClass.getName() + " not found FFCmd.");
         }
 
         //获取属性注解
@@ -50,7 +50,7 @@ public class FFAnnotationUtil {
         objectUtil.getFields(beanClass, fields, null);
 
         if (fields == null || fields.size() == 0) {
-            throw new FFMpegOperationNotFoundExcption(beanClass.getName() + " fields length is 0");
+            throw new FFMpegOperationExcption(beanClass.getName() + " fields length is 0");
         }
 
         List<FFAnnotation> ffAnnotations = new ArrayList<FFAnnotation>();
@@ -65,7 +65,7 @@ public class FFAnnotationUtil {
         }
 
         if (ffAnnotations == null || ffAnnotations.size() == 0) {
-            throw new FFMpegOperationNotFoundExcption(bean.getClass().getName() + " fields not found FFCmd");
+            throw new FFMpegOperationExcption(bean.getClass().getName() + " fields not found FFCmd");
         }
 
         ffCmdBean.setCmdName(classFFAnnotation);

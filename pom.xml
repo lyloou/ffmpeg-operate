@@ -33,6 +33,10 @@
             <name>zhanghaishan</name>
             <email>moutcloud@outlook.com</email>
         </developer>
+        <developer>
+            <name>lyloou</name>
+            <email>lyloou@qq.com</email>
+        </developer>
     </developers>
 
     <!-- “采购”信息，主要是自己项目的git仓库 -->
