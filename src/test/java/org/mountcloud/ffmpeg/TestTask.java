@@ -26,9 +26,7 @@ public class TestTask {
 
         FFTaskContext.getContext().addTask(task);
 
-//        while (!task.getProgress().getState().equals(FFTaskStateEnum.COMPLETE)){
         while (isRunning(task)) {
-
             System.out.println(task.getProgress().getProgress());
             try {
                 Thread.sleep(1000);
@@ -39,7 +37,6 @@ public class TestTask {
     }
 
     private boolean isRunning(FFMepgVideoCutTask task) {
-        System.out.println(task.getProgress().getState());
         switch (task.getProgress().getState()) {
             case FAILED:
             case COMPLETE:
