@@ -12,7 +12,7 @@ import java.util.concurrent.*;
  */
 public class FFThreadManager {
 
-   public static ThreadPool instance;
+    public static ThreadPool instance;
 
     // 获取单例的线程池对象
     public static ThreadPool getInstance() {
@@ -21,7 +21,7 @@ public class FFThreadManager {
                 if (instance == null) {
                     int cpuNum = Runtime.getRuntime().availableProcessors();// 获取处理器数量
                     int threadNum = cpuNum * 2 + 1;// 根据cpu数量,计算出合理的线程并发数
-                    instance = new ThreadPool(threadNum-1, threadNum, Integer.MAX_VALUE);//默认是双核的cpu 每个核心走一个线程 一个等待线程
+                    instance = new ThreadPool(threadNum - 1, threadNum, Integer.MAX_VALUE);//默认是双核的cpu 每个核心走一个线程 一个等待线程
                 }
             }
         }
@@ -63,26 +63,28 @@ public class FFThreadManager {
 
         /**
          * 提交一个可返回值的线程
+         *
          * @param runnable 线程
-         * @param bean 结果类
-         * @param <T> 类型
+         * @param bean     结果类
+         * @param <T>      类型
          * @return 返回结果
-         * @throws ExecutionException 提交异常
+         * @throws ExecutionException   提交异常
          * @throws InterruptedException 提交异常
          */
-        public <T> T submit(Runnable runnable,T bean) throws ExecutionException, InterruptedException {
+        public <T> T submit(Runnable runnable, T bean) throws ExecutionException, InterruptedException {
             if (runnable == null) {
                 return null;
             }
-            Future<T> future = mExecutor.submit(runnable,bean);
+            Future<T> future = mExecutor.submit(runnable, bean);
             return future.get();
         }
 
         /**
          * 提交一个可返回值的线程
+         *
          * @param runnable 线程
          */
-        public void submit(Runnable runnable){
+        public void submit(Runnable runnable) {
             if (runnable == null) {
                 return;
             }

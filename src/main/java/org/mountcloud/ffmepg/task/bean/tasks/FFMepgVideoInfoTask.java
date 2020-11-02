@@ -21,7 +21,7 @@ public class FFMepgVideoInfoTask extends FFVideoTask<FFMpegVideoInfo> {
         super(operation);
     }
 
-    public FFMepgVideoInfoTask(FFVideoInfoResult result,FFMpegVideoInfo operation) {
+    public FFMepgVideoInfoTask(FFVideoInfoResult result, FFMpegVideoInfo operation) {
         super(operation);
         this.data = result;
     }
@@ -38,7 +38,7 @@ public class FFMepgVideoInfoTask extends FFVideoTask<FFMpegVideoInfo> {
 
     @Override
     public void callExecEnd() {
-        if(data==null){
+        if (data == null) {
             //返回结果
             data = new FFVideoInfoResult(result.toString());
         }

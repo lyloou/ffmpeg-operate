@@ -35,11 +35,12 @@ public enum FFTaskStateEnum {
 
     /**
      * 获取枚举
+     *
      * @param i 值
      * @return 枚举
      */
-    public static FFTaskStateEnum getEnum(int i){
-        switch (i){
+    public static FFTaskStateEnum getEnum(int i) {
+        switch (i) {
             case 2:
                 return QUEUE;
             case 1:
@@ -52,9 +53,10 @@ public enum FFTaskStateEnum {
 
     /**
      * 返回值
+     *
      * @return 值
      */
-    public int getValue(){
+    public int getValue() {
         return val;
     }
 }

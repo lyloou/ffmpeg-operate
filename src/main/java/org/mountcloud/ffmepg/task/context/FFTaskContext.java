@@ -36,17 +36,18 @@ public class FFTaskContext {
     /**
      * 任务列表
      */
-    private Map<String,FFTask> taskMap = new HashMap<String,FFTask>();
+    private Map<String, FFTask> taskMap = new HashMap<String, FFTask>();
 
     /**
      * 添加一个任务
+     *
      * @param task 任务
      */
-    public void addTask(FFTask task){
-        try{
+    public void addTask(FFTask task) {
+        try {
             lock.lock();
-            taskMap.put(task.getTaskId(),task);
-        }finally {
+            taskMap.put(task.getTaskId(), task);
+        } finally {
             lock.unlock();
         }
         ffThreadPool.execute(task);
@@ -54,13 +55,14 @@ public class FFTaskContext {
 
     /**
      * 提交一个任务
+     *
      * @param task 提交任务
      */
-    public void submit(FFTask task){
-        try{
+    public void submit(FFTask task) {
+        try {
             lock.lock();
-            taskMap.put(task.getTaskId(),task);
-        }finally {
+            taskMap.put(task.getTaskId(), task);
+        } finally {
             lock.unlock();
         }
 
@@ -70,25 +72,27 @@ public class FFTaskContext {
             e.printStackTrace();
         }
     }
+
     /**
      * 提交一个任务
+     *
      * @param task 提交任务
      * @param bean 数据
-     * @param <T> 数据
+     * @param <T>  数据
      * @return 执行结果
      */
-    public <T> T submit(FFTask task,T bean){
+    public <T> T submit(FFTask task, T bean) {
         T data = null;
 
-        try{
+        try {
             lock.lock();
-            taskMap.put(task.getTaskId(),task);
-        }finally {
+            taskMap.put(task.getTaskId(), task);
+        } finally {
             lock.unlock();
         }
 
         try {
-            data = ffThreadPool.submit(task,bean);
+            data = ffThreadPool.submit(task, bean);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,23 +101,25 @@ public class FFTaskContext {
 
     /**
      * 任务ID
+     *
      * @param taskId 任务id
      */
-    public void removeTask(String taskId){
-        try{
+    public void removeTask(String taskId) {
+        try {
             lock.lock();
             taskMap.remove(taskId);
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
 
     /**
      * 提供上下文
+     *
      * @return 上下文
      */
-    public static FFTaskContext getContext(){
-        if(context == null){
+    public static FFTaskContext getContext() {
+        if (context == null) {
             context = new FFTaskContext();
         }
         return context;
@@ -122,7 +128,7 @@ public class FFTaskContext {
     /**
      * 私密的上下文
      */
-    private FFTaskContext(){
+    private FFTaskContext() {
         ffThreadPool = FFThreadManager.getInstance();
     }
 

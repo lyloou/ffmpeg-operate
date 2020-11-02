@@ -20,7 +20,7 @@ public abstract class FFResult {
      */
     private String error;
 
-    public FFResult(String resultStr){
+    public FFResult(String resultStr) {
         this.resultString = resultStr;
     }
 

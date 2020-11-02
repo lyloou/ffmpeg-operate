@@ -8,7 +8,7 @@ package org.mountcloud.ffmepg.annotation;
  * @author zhanghaishan
  * @version V1.0
  */
-public class FFAnnotation{
+public class FFAnnotation {
 
     /**
      * 注解的key

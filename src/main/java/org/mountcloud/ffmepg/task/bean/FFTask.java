@@ -83,7 +83,7 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
             initReadThread();
 
             //等待执行完毕
-            while (!this.checkReadIsEnd()){
+            while (!this.checkReadIsEnd()) {
                 Thread.sleep(500);
             }
 
@@ -91,15 +91,15 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
             state = this.checkReadState();
 
         } catch (IOException e) {
-            state =false;
+            state = false;
             e.printStackTrace();
         } catch (InterruptedException e) {
-            state =false;
+            state = false;
             e.printStackTrace();
         }
 
         //设置状态
-        if(state){
+        if (state) {
             progress.setState(FFTaskStateEnum.COMPLETE);
         } else {
             progress.setState(FFTaskStateEnum.FAILED);
@@ -112,11 +112,12 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
     /**
      * 判断是否在读取中
+     *
      * @return false 读取中，true 读取完成
      */
-    private boolean checkReadIsEnd(){
-        for(FFTaskReadState state : readState.values()){
-            if(!state.isEnd()){
+    private boolean checkReadIsEnd() {
+        for (FFTaskReadState state : readState.values()) {
+            if (!state.isEnd()) {
                 return false;
             }
         }
@@ -125,11 +126,12 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
     /**
      * 判断读取状态
+     *
      * @return false 读取报错，true 读取成功
      */
-    private boolean checkReadState(){
-        for(FFTaskReadState state : readState.values()){
-            if(!state.getState()){
+    private boolean checkReadState() {
+        for (FFTaskReadState state : readState.values()) {
+            if (!state.getState()) {
                 return false;
             }
         }
@@ -139,13 +141,13 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
     /**
      * 初始化读取线程
      */
-    private void initReadThread(){
+    private void initReadThread() {
 
         //创建读取线程，读取error和in
         FFTaskReadThread ffTaskReadErrorThread = new FFTaskReadThread(this, FFTaskReadType.ERROR_IN);
         FFTaskReadThread ffTaskReadThread = new FFTaskReadThread(this, FFTaskReadType.IN);
-        readState.put(ffTaskReadErrorThread.getReadType(),new FFTaskReadState());
-        readState.put(ffTaskReadThread.getReadType(),new FFTaskReadState());
+        readState.put(ffTaskReadErrorThread.getReadType(), new FFTaskReadState());
+        readState.put(ffTaskReadThread.getReadType(), new FFTaskReadState());
 
         //加入线程数组，如果以后需要可以扩展
         ffTaskReadThreadList.add(ffTaskReadErrorThread);
@@ -159,9 +161,10 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
     /**
      * 传入一行结果
+     *
      * @param line 一行日志
      */
-    public synchronized void putResultLine(String line){
+    public synchronized void putResultLine(String line) {
         result.append(line);
         callRsultLine(line);
     }
@@ -174,6 +177,7 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
     /**
      * 正确结果行
+     *
      * @param line 一行结果
      */
     public abstract void callRsultLine(String line);
@@ -186,16 +190,17 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
 
     /**
      * 任务构造
+     *
      * @param operation 操作
      */
-    public FFTask(T operation){
+    public FFTask(T operation) {
         this.operationBase = operation;
         this.taskId = UUIDUtil.getUUIDSimpl();
         this.createTime = new Date();
         this.progress = new FFTaskProgress();
     }
 
-    public FFTask(){
+    public FFTask() {
         this.progress = new FFTaskProgress();
     }
 
@@ -211,11 +216,11 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
         this.progress = progress;
     }
 
-    public FFTerminalCreater.FFTerminal getTerminal(){
+    public FFTerminalCreater.FFTerminal getTerminal() {
         return terminal;
     }
 
-    public FFTaskReadState getReadState(FFTaskReadType ffTaskReadType){
+    public FFTaskReadState getReadState(FFTaskReadType ffTaskReadType) {
         return this.readState.get(ffTaskReadType);
     }
 

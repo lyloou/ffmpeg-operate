@@ -8,7 +8,7 @@ package org.mountcloud.ffmepg.result.defaultResult;
  * @author zhanghaishan
  * @version V1.0
  */
-public class FFVideoInfoResult extends FFDefaultResult{
+public class FFVideoInfoResult extends FFDefaultResult {
 
 
     /**

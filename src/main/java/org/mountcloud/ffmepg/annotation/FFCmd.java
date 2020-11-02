@@ -10,13 +10,14 @@ import java.lang.annotation.*;
  * @author zhanghaishan
  * @version V1.0
  */
-@Target({ElementType.FIELD,ElementType.TYPE})
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface FFCmd {
 
     /**
      * 命令的key
+     *
      * @return 命令Key
      */
     public String key() default "";

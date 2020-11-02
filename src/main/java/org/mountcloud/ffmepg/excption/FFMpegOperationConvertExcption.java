@@ -8,9 +8,9 @@ package org.mountcloud.ffmepg.excption;
  * @author zhanghaishan
  * @version V1.0
  */
-public class FFMpegOperationConvertExcption extends RuntimeException{
+public class FFMpegOperationConvertExcption extends RuntimeException {
 
-    public FFMpegOperationConvertExcption(String ex){
+    public FFMpegOperationConvertExcption(String ex) {
         super(ex);
     }
 

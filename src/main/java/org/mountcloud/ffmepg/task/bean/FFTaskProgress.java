@@ -10,7 +10,7 @@ package org.mountcloud.ffmepg.task.bean;
  */
 public class FFTaskProgress {
 
-    public FFTaskProgress(){
+    public FFTaskProgress() {
         this.progress = 0;
         this.state = FFTaskStateEnum.QUEUE;
     }

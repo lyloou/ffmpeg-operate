@@ -8,7 +8,7 @@ package org.mountcloud.ffmepg.task.bean.read;
  * @author zhanghaishan
  * @version V1.0
  */
-public enum FFTaskReadType{
+public enum FFTaskReadType {
     ERROR_IN,//读取异常流
     IN//读取流
 }

@@ -25,10 +25,11 @@ public abstract class FFOperationBase {
 
     /**
      * 返回命令
+     *
      * @return 命令
      */
-    public String getCommand(){
-        if(command == null){
+    public String getCommand() {
+        if (command == null) {
             command = toString();
         }
         return command;
@@ -36,10 +37,11 @@ public abstract class FFOperationBase {
 
     /**
      * 返回命令参数
+     *
      * @return 参数
      */
-    public List<String> getCommandParams(){
-        if(commandParams.size()==0){
+    public List<String> getCommandParams() {
+        if (commandParams.size() == 0) {
             toString();
         }
         return commandParams;
@@ -48,6 +50,7 @@ public abstract class FFOperationBase {
 
     /**
      * 直接转成命令
+     *
      * @return 命令
      */
     @Override
@@ -62,18 +65,18 @@ public abstract class FFOperationBase {
 
             str = execname;
 
-            for(int i=0;i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
                 FFAnnotation annotation = list.get(i);
                 String aKey = annotation.getKey();
                 String aValue = annotation.getValue();
 
-                if(aKey!=null&&aKey.length()>0&&aValue!=null){
-                    str =  str +" "+aKey;
+                if (aKey != null && aKey.length() > 0 && aValue != null) {
+                    str = str + " " + aKey;
                     commandParams.add(aKey);
                 }
 
-                if(aValue!=null&&aValue.length()>0){
-                    str =  str +" "+aValue;
+                if (aValue != null && aValue.length() > 0) {
+                    str = str + " " + aValue;
                     commandParams.add(aValue);
                 }
             }
@@ -81,7 +84,7 @@ public abstract class FFOperationBase {
         } catch (IllegalAccessException e) {
             str = null;
         }
-        if(str==null){
+        if (str == null) {
             throw new FFMpegOperationConvertExcption("FFMpegOperation To String Is Null!");
         }
 

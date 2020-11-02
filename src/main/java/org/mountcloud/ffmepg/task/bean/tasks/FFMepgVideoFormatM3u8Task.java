@@ -38,28 +38,30 @@ public class FFMepgVideoFormatM3u8Task extends FFVideoTask<FFMpegVideoFormatM3u8
 
     /**
      * 任务构造
+     *
      * @param format 操作
      */
-    public FFMepgVideoFormatM3u8Task(FFMpegVideoFormatM3u8 format){
+    public FFMepgVideoFormatM3u8Task(FFMpegVideoFormatM3u8 format) {
         super(format);
     }
 
     /**
      * 回调
+     *
      * @param line 一行结果
      */
     @Override
     public void callBackResultLine(String line) {
 
-        if(super.getTimeLengthSec()!=null){
+        if (super.getTimeLengthSec() != null) {
             //获取视频信息
             Matcher m = framePattern.matcher(line);
-            if(m.find()){
+            if (m.find()) {
                 try {
                     String execTimeStr = m.group(5);
                     int execTimeInt = FFVideoUtil.getTimelen(execTimeStr);
-                    double devnum = FFBigDecimalUtil.div(execTimeInt,super.getTimeLengthSec(),5);
-                    double progressDouble = FFBigDecimalUtil.mul(devnum,100);
+                    double devnum = FFBigDecimalUtil.div(execTimeInt, super.getTimeLengthSec(), 5);
+                    double progressDouble = FFBigDecimalUtil.mul(devnum, 100);
                     super.getProgress().setProgress((int) progressDouble);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();

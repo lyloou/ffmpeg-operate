@@ -16,12 +16,13 @@ public class FFMpegVideoScreenShot extends FFMpegOperationBase {
 
     /**
      * 视频截图操作
-     * @param video 视频地址
+     *
+     * @param video     视频地址
      * @param startTime 截图开始时间
-     * @param vframes 帧数
-     * @param image 输出文件路径
+     * @param vframes   帧数
+     * @param image     输出文件路径
      */
-    public FFMpegVideoScreenShot(String video,String startTime, String vframes, String image) {
+    public FFMpegVideoScreenShot(String video, String startTime, String vframes, String image) {
         this.video = video;
         this.startTime = startTime;
         this.vframes = vframes;

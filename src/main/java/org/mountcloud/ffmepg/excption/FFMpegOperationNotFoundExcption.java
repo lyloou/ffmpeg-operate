@@ -9,7 +9,7 @@ package org.mountcloud.ffmepg.excption;
  * @version V1.0
  */
 public class FFMpegOperationNotFoundExcption extends RuntimeException {
-    public FFMpegOperationNotFoundExcption(String ex){
+    public FFMpegOperationNotFoundExcption(String ex) {
         super(ex);
     }
 }

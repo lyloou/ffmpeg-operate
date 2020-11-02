@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * @author zhanghaishan
  * @version V1.0
  */
-public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
+public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T> {
 
     /**
      * 秒数
@@ -90,12 +90,13 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
     private Pattern sizePattern = Pattern.compile(sizeDuration);
 
 
-    public FFVideoTask(T operation){
+    public FFVideoTask(T operation) {
         super(operation);
     }
 
     /**
      * 设置结果
+     *
      * @param line 一行结果
      */
     @Override
@@ -106,7 +107,7 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
         Matcher m = pattern.matcher(line.trim());
         if (m.find()) {
             timeLength = m.group(1);
-            if(timeLength!=null){
+            if (timeLength != null) {
                 timeLengthSec = FFVideoUtil.getTimelen(timeLength);
             }
             startTime = m.group(2);
@@ -118,7 +119,7 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
          */
         //Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p, 1024x576 [SAR 1:1 DAR 16:9], 20 fps, 20 tbr, 90k tbn, 40 tbc
         Matcher sizem = sizePattern.matcher(line.trim());
-        if(sizem.find()){
+        if (sizem.find()) {
             findSize(line);
         }
 
@@ -128,6 +129,7 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
 
     /**
      * 子类需要返回的
+     *
      * @param line 一行结果
      */
     public abstract void callBackResultLine(String line);
@@ -165,30 +167,31 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
     }
 
     //格式:"00:00:10.68"
-    protected int getTimelen(String timelen){
-        int min=0;
+    protected int getTimelen(String timelen) {
+        int min = 0;
         String strs[] = timelen.split(":");
         if (strs[0].compareTo("0") > 0) {
-            min+=Integer.valueOf(strs[0])*60*60;//秒
+            min += Integer.valueOf(strs[0]) * 60 * 60;//秒
         }
-        if(strs[1].compareTo("0")>0){
-            min+=Integer.valueOf(strs[1])*60;
+        if (strs[1].compareTo("0") > 0) {
+            min += Integer.valueOf(strs[1]) * 60;
         }
-        if(strs[2].compareTo("0")>0){
-            min+=Math.round(Float.valueOf(strs[2]));
+        if (strs[2].compareTo("0") > 0) {
+            min += Math.round(Float.valueOf(strs[2]));
         }
         return min;
     }
 
     /**
      * 获取长度的信息
+     *
      * @param line
      */
-    private void findSize(String line){
+    private void findSize(String line) {
 
         String sizeRegs = ", \\d*x\\d*";
-        String sizeResul = StringUtil.findStringsByRegsOne(sizeRegs,line);
-        sizeResul = sizeResul.replace(", ","");
+        String sizeResul = StringUtil.findStringsByRegsOne(sizeRegs, line);
+        sizeResul = sizeResul.replace(", ", "");
         String[] size = sizeResul.split("x");
         String w = size[0];
         String h = size[1];
@@ -196,30 +199,30 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T>{
         setHeight(h);
 
         String fpsRegs = "\\d* fps";
-        String fpsResul = StringUtil.findStringsByRegsOne(fpsRegs,line);
-        if(fpsResul!=null){
-            fpsResul = fpsResul.replace(" fps","");
+        String fpsResul = StringUtil.findStringsByRegsOne(fpsRegs, line);
+        if (fpsResul != null) {
+            fpsResul = fpsResul.replace(" fps", "");
             setFps(fpsResul);
         }
 
         String tbrRegs = "\\d* tbr";
-        String tbrResul = StringUtil.findStringsByRegsOne(tbrRegs,line);
-        if(tbrResul!=null){
-            tbrResul = tbrResul.replace(" tbr","");
+        String tbrResul = StringUtil.findStringsByRegsOne(tbrRegs, line);
+        if (tbrResul != null) {
+            tbrResul = tbrResul.replace(" tbr", "");
             setTbr(tbrResul);
         }
 
         String tbnRegs = "[0-9a-z]* tbn";
-        String tbnResul = StringUtil.findStringsByRegsOne(tbnRegs,line);
-        if(tbnResul!=null){
-            tbnResul = tbnResul.replace(" tbn","");
+        String tbnResul = StringUtil.findStringsByRegsOne(tbnRegs, line);
+        if (tbnResul != null) {
+            tbnResul = tbnResul.replace(" tbn", "");
             setTbn(tbnResul);
         }
 
         String tbcRegs = "\\d* tbc";
-        String tbcResul = StringUtil.findStringsByRegsOne(tbcRegs,line);
-        if(tbcResul!=null){
-            tbcResul = tbcResul.replace(" tbc","");
+        String tbcResul = StringUtil.findStringsByRegsOne(tbcRegs, line);
+        if (tbcResul != null) {
+            tbcResul = tbcResul.replace(" tbc", "");
             setTbc(tbcResul);
         }
 

@@ -15,8 +15,8 @@ public class FFTerminalCreater {
 
     private static FFTerminalCreater creater = null;
 
-    public static FFTerminalCreater getCreater(){
-        if(creater == null){
+    public static FFTerminalCreater getCreater() {
+        if (creater == null) {
             creater = new FFTerminalCreater();
         }
         return creater;
@@ -24,6 +24,7 @@ public class FFTerminalCreater {
 
     /**
      * 获取一个命令的命令对象
+     *
      * @param cmd 命令
      * @return 命令对象
      * @throws IOException 异常
@@ -32,45 +33,47 @@ public class FFTerminalCreater {
 
         String[] cmds = new String[3];
 
-        if(OSUtils.WINDOWS){
+        if (OSUtils.WINDOWS) {
             cmds[0] = "cmd";
             cmds[1] = "/c";
-        }else{
+        } else {
             cmds[0] = "/bin/sh";
             cmds[1] = "-c";
         }
 
         cmds[2] = cmd;
 
-        FFTerminal ffTerminal = new FFTerminal( Runtime.getRuntime().exec(cmd));
+        FFTerminal ffTerminal = new FFTerminal(Runtime.getRuntime().exec(cmd));
         return ffTerminal;
     }
 
     /**
      * 获取一个命令的命令对象
+     *
      * @param cmd 命令
      * @return 命令工具
      * @throws IOException 异常
      */
     public FFTerminal getTerminal(String[] cmd) throws IOException {
-        FFTerminal ffTerminal = new FFTerminal( Runtime.getRuntime().exec(cmd));
+        FFTerminal ffTerminal = new FFTerminal(Runtime.getRuntime().exec(cmd));
         return ffTerminal;
     }
 
     /**
      * 获取一个命令的命令对象
-     * @param cmd 命令
+     *
+     * @param cmd    命令
      * @param params 参数
      * @return 命令对象
      * @throws IOException 异常
      */
     public FFTerminal getTerminal(String cmd, List<String> params) throws IOException {
         String[] tempParams = new String[params.size()];
-        for(int i=0;i<params.size();i++){
+        for (int i = 0; i < params.size(); i++) {
             String tp = params.get(i);
             tempParams[i] = tp;
         }
-        FFTerminal ffTerminal = new FFTerminal( Runtime.getRuntime().exec(cmd,tempParams));
+        FFTerminal ffTerminal = new FFTerminal(Runtime.getRuntime().exec(cmd, tempParams));
         return ffTerminal;
     }
 
@@ -78,7 +81,7 @@ public class FFTerminalCreater {
     /**
      * 命令实例
      */
-    public static class FFTerminal{
+    public static class FFTerminal {
 
         private Process process;
 
@@ -93,7 +96,7 @@ public class FFTerminalCreater {
 
         private OutputStream outputStream;
 
-        public FFTerminal(Process process){
+        public FFTerminal(Process process) {
             this.process = process;
             this.inputStream = process.getInputStream();
             this.errorInputStream = process.getErrorStream();
@@ -105,6 +108,7 @@ public class FFTerminalCreater {
 
         /**
          * 返回 Process
+         *
          * @return Process
          */
         public Process getProcess() {
@@ -113,6 +117,7 @@ public class FFTerminalCreater {
 
         /**
          * 返回 InputStream
+         *
          * @return InputStream
          */
         public InputStream getInputStream() {
@@ -121,6 +126,7 @@ public class FFTerminalCreater {
 
         /**
          * 返回 ErrorInputStream
+         *
          * @return ErrorInputStream
          */
         public InputStream getErrorInputStream() {
@@ -129,6 +135,7 @@ public class FFTerminalCreater {
 
         /**
          * 键入流
+         *
          * @return OutputStream
          */
         public OutputStream getOutputStream() {
@@ -145,6 +152,7 @@ public class FFTerminalCreater {
 
         /**
          * 读取一行
+         *
          * @return 一行的数据
          * @throws IOException 异常
          */
@@ -155,6 +163,7 @@ public class FFTerminalCreater {
 
         /**
          * 从error中读取一行
+         *
          * @return 一行文本
          * @throws IOException 异常
          */
@@ -165,16 +174,17 @@ public class FFTerminalCreater {
 
         /**
          * 是否还存活
+         *
          * @return 是否存活
          */
-        public boolean isAlive(){
+        public boolean isAlive() {
             return process.isAlive();
         }
 
         /**
          * 退出
          */
-        public void exit(){
+        public void exit() {
             process.destroy();
         }
 

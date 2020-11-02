@@ -27,10 +27,11 @@ public class FFTaskReadThread implements FFThread {
 
     /**
      * 构造一个读取线程
-     * @param ffTask 任务
+     *
+     * @param ffTask   任务
      * @param readType 读取类型
      */
-    public FFTaskReadThread(FFTask<?> ffTask,FFTaskReadType readType){
+    public FFTaskReadThread(FFTask<?> ffTask, FFTaskReadType readType) {
         this.ffTask = ffTask;
         this.readType = readType;
     }
@@ -41,17 +42,17 @@ public class FFTaskReadThread implements FFThread {
         String str = null;
         boolean state = false;
         try {
-            if(readType.equals(FFTaskReadType.ERROR_IN)){
-                while ((str=ffTask.getTerminal().readErrorLine())!=null){
+            if (readType.equals(FFTaskReadType.ERROR_IN)) {
+                while ((str = ffTask.getTerminal().readErrorLine()) != null) {
                     ffTask.putResultLine(str);
                 }
-            }else{
-                while ((str=ffTask.getTerminal().readLine())!=null){
+            } else {
+                while ((str = ffTask.getTerminal().readLine()) != null) {
                     ffTask.putResultLine(str);
                 }
             }
             state = true;
-        }catch (IOException e){
+        } catch (IOException e) {
             state = false;
             e.printStackTrace();
         }
@@ -61,7 +62,7 @@ public class FFTaskReadThread implements FFThread {
         readState.setState(state);
     }
 
-    public FFTaskReadType getReadType(){
+    public FFTaskReadType getReadType() {
         return this.readType;
     }
 

@@ -23,8 +23,9 @@ public class FFAnnotationUtil {
 
     /**
      * 提取一个操作中的注解
+     *
      * @param bean 操作
-     * @param <T> 操作的类型
+     * @param <T>  操作的类型
      * @return 返回操作中的所有注解
      * @throws IllegalAccessException 异常
      */
@@ -35,10 +36,10 @@ public class FFAnnotationUtil {
 
         //获取类的注解
         FFCmd classFFCmd = getClassFFCmd(beanClass);
-        FFAnnotation classFFAnnotation = getFFOperation(classFFCmd,null,bean);
+        FFAnnotation classFFAnnotation = getFFOperation(classFFCmd, null, bean);
 
-        if(classFFAnnotation==null){
-            throw new FFMpegOperationNotFoundExcption(beanClass.getName()+" not found FFCmd.");
+        if (classFFAnnotation == null) {
+            throw new FFMpegOperationNotFoundExcption(beanClass.getName() + " not found FFCmd.");
         }
 
         //获取属性注解
@@ -46,25 +47,25 @@ public class FFAnnotationUtil {
 
         ObjectUtil objectUtil = new ObjectUtil();
         //获取全部属性
-        objectUtil.getFields(beanClass,fields,null);
+        objectUtil.getFields(beanClass, fields, null);
 
-        if(fields==null||fields.size()==0){
-            throw new FFMpegOperationNotFoundExcption(beanClass.getName()+" fields length is 0");
+        if (fields == null || fields.size() == 0) {
+            throw new FFMpegOperationNotFoundExcption(beanClass.getName() + " fields length is 0");
         }
 
         List<FFAnnotation> ffAnnotations = new ArrayList<FFAnnotation>();
 
-        for(int i=0;i<fields.size();i++){
+        for (int i = 0; i < fields.size(); i++) {
             Field field = fields.get(i);
             FFCmd fieldFFCmd = field.getAnnotation(FFCmd.class);
-            FFAnnotation fieldFFAnnotation = getFFOperation(fieldFFCmd,field,bean);
-            if(fieldFFAnnotation!=null){
+            FFAnnotation fieldFFAnnotation = getFFOperation(fieldFFCmd, field, bean);
+            if (fieldFFAnnotation != null) {
                 ffAnnotations.add(fieldFFAnnotation);
             }
         }
 
-        if(ffAnnotations==null||ffAnnotations.size()==0){
-            throw new FFMpegOperationNotFoundExcption(bean.getClass().getName()+" fields not found FFCmd");
+        if (ffAnnotations == null || ffAnnotations.size() == 0) {
+            throw new FFMpegOperationNotFoundExcption(bean.getClass().getName() + " fields not found FFCmd");
         }
 
         ffCmdBean.setCmdName(classFFAnnotation);
@@ -75,17 +76,18 @@ public class FFAnnotationUtil {
 
     /**
      * 递归查询FFCmd
+     *
      * @param cls cls
      * @param <T> type
      * @return FFcmd
      */
-    private <T> FFCmd getClassFFCmd(Class<T> cls){
+    private <T> FFCmd getClassFFCmd(Class<T> cls) {
         FFCmd ffCmd = cls.getAnnotation(FFCmd.class);
-        if(ffCmd==null){
+        if (ffCmd == null) {
             Class<?> superCls = cls.getSuperclass();
-            if(superCls.equals(Object.class)){
+            if (superCls.equals(Object.class)) {
                 return null;
-            }else{
+            } else {
                 return getClassFFCmd(superCls);
             }
         }
@@ -94,13 +96,14 @@ public class FFAnnotationUtil {
 
     /**
      * 从一组Annotation中提取FFCmd
+     *
      * @param ffCmd 注解
      * @return FFAnnotation
      */
-    private <T> FFAnnotation getFFOperation(FFCmd ffCmd, Field field,T bean) throws IllegalAccessException {
+    private <T> FFAnnotation getFFOperation(FFCmd ffCmd, Field field, T bean) throws IllegalAccessException {
         FFAnnotation ffAnnotation = null;
         //如果没有注解的返回空
-        if(ffCmd==null){
+        if (ffCmd == null) {
             return ffAnnotation;
         }
 
@@ -109,7 +112,7 @@ public class FFAnnotationUtil {
 
         ffAnnotation = new FFAnnotation();
 
-        if(field==null){
+        if (field == null) {
             ffAnnotation.setKey(key);
             return ffAnnotation;
         }
@@ -118,7 +121,7 @@ public class FFAnnotationUtil {
 
         ffAnnotation.setKey(key);
         Object value = field.get(bean);
-        if(value!=null){
+        if (value != null) {
             String valueStr = value.toString();
             ffAnnotation.setValue(valueStr);
         }
