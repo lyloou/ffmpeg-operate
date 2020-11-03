@@ -76,7 +76,7 @@ public abstract class FFOperationBase {
                 }
 
                 if (aValue != null && aValue.length() > 0) {
-                    str = str + " " + aValue;
+                    str = str + " " + addQuoteToValueIfNeeded(aKey, aValue);
                     commandParams.add(aValue);
                 }
             }
@@ -91,5 +91,19 @@ public abstract class FFOperationBase {
         stringvalue = str;
 
         return stringvalue;
+    }
+
+    /**
+     * 给文件加双引号
+     *
+     * @param aKey   键
+     * @param aValue 值
+     * @return 可能加了双引号的值
+     */
+    private String addQuoteToValueIfNeeded(String aKey, String aValue) {
+        if ("-i".equals(aKey) || "".equals(aKey)) {
+            return "\"" + aValue + "\"";
+        }
+        return aValue;
     }
 }

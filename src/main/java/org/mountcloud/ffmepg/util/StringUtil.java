@@ -202,7 +202,7 @@ public class StringUtil {
 
     public static String replaceWhitespace(String str) {
         if (str.contains("\\ ")) {
-            str = str.replace("\\ ", "\\\\ ");
+            str = str.replace("\\ ", "%20");
         }
         return str;
     }

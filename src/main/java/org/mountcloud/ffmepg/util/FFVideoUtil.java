@@ -19,6 +19,7 @@ public class FFVideoUtil {
     public static int getTimelen(String timelen) {
         int min = 0;
         if (timelen.indexOf(":") == -1) {
+            System.out.println("---------------------<<<<<<<<<<<<<>>>>>>>>>>>>>>--------------");
             return 0;
         }
         String strs[] = timelen.split(":");
