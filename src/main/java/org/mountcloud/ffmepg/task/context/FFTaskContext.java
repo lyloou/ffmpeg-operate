@@ -53,6 +53,10 @@ public class FFTaskContext {
         ffThreadPool.execute(task);
     }
 
+    public FFTask getTask(String taskId) {
+        return taskMap.get(taskId);
+    }
+
     /**
      * 提交一个任务
      *
