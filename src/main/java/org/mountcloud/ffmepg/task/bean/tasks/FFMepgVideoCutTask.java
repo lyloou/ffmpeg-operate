@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public class FFMepgVideoCutTask extends FFVideoTask<FFMpegVideoCut> {
     private final FFMpegVideoCut cut;
-    private CyclicBarrier cyclicBarrier;
+    private final CyclicBarrier cyclicBarrier;
     /**
      * 进度正则查询
      */
