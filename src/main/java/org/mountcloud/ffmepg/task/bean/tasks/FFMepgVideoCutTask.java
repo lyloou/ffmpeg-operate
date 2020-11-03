@@ -28,12 +28,12 @@ public class FFMepgVideoCutTask extends FFVideoTask<FFMpegVideoCut> {
     /**
      * 进度正则查询
      */
-    private String frameRegexDuration = "frame=([\\s,\\d]*) fps=(.*?) q=(.*?) size=([\\s\\S]*) time=(.*?) bitrate=([\\s\\S]*) speed=(.*?)x";
+    private final String frameRegexDuration = "frame=([\\s,\\d]*) fps=(.*?) q=(.*?) size=([\\s\\S]*) time=(.*?) bitrate=([\\s\\S]*) speed=(.*?)x";
 
     /**
      * 正则模式
      */
-    private Pattern framePattern = Pattern.compile(frameRegexDuration);
+    private final Pattern framePattern = Pattern.compile(frameRegexDuration);
 
     @Override
     public void callExecStart() {

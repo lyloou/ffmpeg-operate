@@ -18,7 +18,13 @@ public class FFVideoUtil {
      */
     public static int getTimelen(String timelen) {
         int min = 0;
+        if (timelen.indexOf(":") == -1) {
+            return 0;
+        }
         String strs[] = timelen.split(":");
+        if (strs.length < 1) {
+            return 0;
+        }
         if (strs[0].compareTo("0") > 0) {
             min += Integer.valueOf(strs[0]) * 60 * 60;//秒
         }
