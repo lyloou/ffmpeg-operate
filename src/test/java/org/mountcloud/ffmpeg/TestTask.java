@@ -1,13 +1,11 @@
 package org.mountcloud.ffmpeg;
 
 import org.junit.Test;
-import org.mountcloud.ffmepg.operation.FFOperationBase;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoConcat;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoCut;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoFormatM3u8;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoInfo;
 import org.mountcloud.ffmepg.result.defaultResult.FFVideoInfoResult;
-import org.mountcloud.ffmepg.task.bean.FFVideoTask;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoConcatTask;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoCutTask;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoFormatM3u8Task;
@@ -16,6 +14,8 @@ import org.mountcloud.ffmepg.task.context.FFTaskContext;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.mountcloud.ffmepg.util.FFTaskUtil.defaultMonitor;
 
 
 public class TestTask {
@@ -26,7 +26,7 @@ public class TestTask {
         FFMepgVideoConcatTask task = new FFMepgVideoConcatTask(concat);
         FFTaskContext.getContext().addTask(task);
 
-        monitor(task);
+        defaultMonitor(task);
     }
 
     private List<String> getList() {
@@ -53,18 +53,7 @@ public class TestTask {
         task.setName("taskCut");
         FFTaskContext.getContext().addTask(task);
 
-        monitor(task);
-    }
-
-    private static <T extends FFOperationBase> void monitor(FFVideoTask<T> task) {
-        while (task.isRunning()) {
-            System.out.println(task.getName() + "-" + task.getTaskId() + ": " + task.getProgress().getProgress());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        defaultMonitor(task);
     }
 
     @Test
@@ -82,7 +71,7 @@ public class TestTask {
 
         FFTaskContext.getContext().addTask(task);
 
-        monitor(task);
+        defaultMonitor(task);
     }
 
 

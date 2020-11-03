@@ -1,30 +1,24 @@
 package org.mountcloud.ffmpeg;
 
 import org.junit.Test;
-import org.mountcloud.ffmepg.operation.FFOperationBase;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoConcat;
 import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoCut;
-import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoFormatM3u8;
-import org.mountcloud.ffmepg.operation.ffmpeg.video.FFMpegVideoInfo;
-import org.mountcloud.ffmepg.result.defaultResult.FFVideoInfoResult;
 import org.mountcloud.ffmepg.task.bean.CutInfo;
-import org.mountcloud.ffmepg.task.bean.FFVideoTask;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoConcatTask;
 import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoCutTask;
-import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoFormatM3u8Task;
-import org.mountcloud.ffmepg.task.bean.tasks.FFMepgVideoInfoTask;
 import org.mountcloud.ffmepg.task.context.FFTaskContext;
 
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.stream.Collectors;
+
+import static org.mountcloud.ffmepg.util.FFTaskUtil.defaultMonitor;
 
 
 public class TestCutAndConcatTask {
@@ -124,7 +118,7 @@ public class TestCutAndConcatTask {
         FFMepgVideoConcatTask task = new FFMepgVideoConcatTask(concat);
         task.setName("taskCutAndConcat-Concat");
         FFTaskContext.getContext().addTask(task);
-        monitor(task);
+        defaultMonitor(task);
     }
 
     private void cut(Collection<CutInfo> cutInfos) {
@@ -142,7 +136,7 @@ public class TestCutAndConcatTask {
             task.setName("taskCutAndConcat-Cut");
             FFTaskContext.getContext().addTask(task);
             new Thread(() -> {
-                monitor(task);
+                defaultMonitor(task);
             }).start();
         }
 
@@ -154,18 +148,6 @@ public class TestCutAndConcatTask {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    private static <T extends FFOperationBase> void monitor(FFVideoTask<T> task) {
-        while (task.isRunning()) {
-            System.out.println(task.getName() + "-" + task.getTaskId() + ": " + task.getProgress().getProgress());
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

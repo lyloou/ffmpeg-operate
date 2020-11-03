@@ -2,7 +2,6 @@ package org.mountcloud.ffmepg.operation.ffmpeg.video;
 
 
 import org.mountcloud.ffmepg.annotation.FFCmd;
-import org.mountcloud.ffmepg.excption.FFMpegOperationExcption;
 import org.mountcloud.ffmepg.operation.ffmpeg.FFMpegOperationBase;
 
 import java.util.List;
