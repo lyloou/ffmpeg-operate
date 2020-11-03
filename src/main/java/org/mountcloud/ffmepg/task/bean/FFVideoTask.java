@@ -100,7 +100,7 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T> {
      * @param line 一行结果
      */
     @Override
-    public void callRsultLine(String line) {
+    public void callResultLine(String line) {
 
         //获取视频时长信息
         //Duration: 00:03:38.80, start: 1.427433, bitrate: 0 kb/s

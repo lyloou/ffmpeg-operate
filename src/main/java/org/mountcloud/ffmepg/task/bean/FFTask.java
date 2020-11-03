@@ -182,7 +182,7 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
      */
     public synchronized void putResultLine(String line) {
         result.append(line);
-        callRsultLine(line);
+        callResultLine(line);
     }
 
 
@@ -196,7 +196,7 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
      *
      * @param line 一行结果
      */
-    public abstract void callRsultLine(String line);
+    public abstract void callResultLine(String line);
 
     /**
      * 执行结束

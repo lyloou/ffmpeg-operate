@@ -199,4 +199,11 @@ public class StringUtil {
         String result = strs.size() == 0 ? null : strs.get(0);
         return result;
     }
+
+    public static String replaceWhitespace(String str) {
+        if (str.contains("\\ ")) {
+            str = str.replace("\\ ", "\\\\ ");
+        }
+        return str;
+    }
 }
