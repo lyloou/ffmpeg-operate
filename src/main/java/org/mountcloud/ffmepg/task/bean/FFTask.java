@@ -27,6 +27,11 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
     private String taskId;
 
     /**
+     * 任务名称，给任务起个名
+     */
+    private String name = "FFTask";
+
+    /**
      * 执行结果的全部内容
      */
     protected StringBuffer result = new StringBuffer("");
@@ -111,6 +116,14 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
                 return false;
         }
         return true;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

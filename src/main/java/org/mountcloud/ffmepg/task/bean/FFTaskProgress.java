@@ -17,7 +17,7 @@ public class FFTaskProgress {
 
     private int progress;
 
-    private FFTaskStateEnum state;
+    private volatile FFTaskStateEnum state;
 
     public FFTaskStateEnum getState() {
         return state;

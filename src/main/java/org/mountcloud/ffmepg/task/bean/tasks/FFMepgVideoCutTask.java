@@ -11,6 +11,8 @@ import org.mountcloud.ffmepg.util.FFVideoUtil;
 
 import java.io.File;
 import java.sql.Time;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +26,8 @@ import java.util.regex.Pattern;
  * @version V1.0
  */
 public class FFMepgVideoCutTask extends FFVideoTask<FFMpegVideoCut> {
-    FFMpegVideoCut cut;
+    private final FFMpegVideoCut cut;
+    private CyclicBarrier cyclicBarrier;
     /**
      * 进度正则查询
      */
@@ -68,16 +71,29 @@ public class FFMepgVideoCutTask extends FFVideoTask<FFMpegVideoCut> {
 
     @Override
     public void callExecEnd() {
+        if (cyclicBarrier != null) {
+            try {
+                System.out.println(getTaskId() + "：我已经完成任务，等你们...");
+                cyclicBarrier.await();
+                System.out.println(getTaskId() + "：都完成了啊，我起床了...");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 任务构造
      *
-     * @param format 操作
+     * @param format        操作
+     * @param cyclicBarrier
      */
-    public FFMepgVideoCutTask(FFMpegVideoCut format) {
+    public FFMepgVideoCutTask(FFMpegVideoCut format, CyclicBarrier cyclicBarrier) {
         super(format);
         this.cut = format;
+        this.cyclicBarrier = cyclicBarrier;
     }
 
     /**
