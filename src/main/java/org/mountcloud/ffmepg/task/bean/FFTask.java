@@ -210,8 +210,12 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
      * @param operation 操作
      */
     public FFTask(T operation) {
+        this(operation, UUIDUtil.getUUIDSimpl());
+    }
+
+    public FFTask(T operation, String taskId) {
         this.operationBase = operation;
-        this.taskId = UUIDUtil.getUUIDSimpl();
+        this.taskId = taskId == null ? UUIDUtil.getUUIDSimpl() : taskId;
         this.createTime = new Date();
         this.progress = new FFTaskProgress();
     }

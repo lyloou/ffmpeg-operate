@@ -94,6 +94,10 @@ public abstract class FFVideoTask<T extends FFOperationBase> extends FFTask<T> {
         super(operation);
     }
 
+    public FFVideoTask(T operation, String taskId) {
+        super(operation, taskId);
+    }
+
     /**
      * 设置结果
      *
