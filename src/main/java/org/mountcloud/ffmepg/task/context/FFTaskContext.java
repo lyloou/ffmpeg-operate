@@ -53,6 +53,15 @@ public class FFTaskContext {
         ffThreadPool.execute(task);
     }
 
+    /**
+     * 添加一个任务
+     *
+     * @param runnable 任务
+     */
+    public void addRunnable(Runnable runnable) {
+        ffThreadPool.execute(runnable);
+    }
+
     public FFTask getTask(String taskId) {
         return taskMap.get(taskId);
     }
