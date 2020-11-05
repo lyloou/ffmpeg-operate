@@ -62,6 +62,11 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
     private Map<FFTaskReadType, FFTaskReadState> readState = new HashMap<>();
 
     /**
+     * 备注：如果失败的话，记录下失败原因
+     */
+    private String memo;
+
+    /**
      * 读取线程
      */
     protected List<FFTaskReadThread> ffTaskReadThreadList = new ArrayList<>();
@@ -95,15 +100,17 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
         } catch (Exception e) {
             state = false;
             e.printStackTrace();
+            memo = e.getMessage();
         } finally {
-            //执行结束回调
-            callExecEnd();
 
             FFTaskContext.getContext().removeTask(this.getTaskId());
 
             //设置状态
             progress.setProgress(100);
             progress.setState(state ? FFTaskStateEnum.COMPLETE : FFTaskStateEnum.FAILED);
+
+            //执行结束回调
+            callExecEnd();
         }
 
 
@@ -244,4 +251,11 @@ public abstract class FFTask<T extends FFOperationBase> implements FFThread {
         return this.readState.get(ffTaskReadType);
     }
 
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 }
