@@ -43,7 +43,9 @@ public class FFTerminalCreater {
 
         cmds[2] = cmd;
 
-        FFTerminal ffTerminal = new FFTerminal(Runtime.getRuntime().exec(cmd));
+        // No such file or directory:"某视频文件下载URL"。
+        // https://javamana.com/2020/11/202011122207326241.html
+        FFTerminal ffTerminal = new FFTerminal(Runtime.getRuntime().exec(cmds));
         return ffTerminal;
     }
 
